@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>us.</title>
+  </head>
+  <style>
+    body {
+    background-color: black;
+    color: white;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+  }
+  
+  #counter {
+    font-size: 72px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  </style>
+  <body>
+    <div id="counter"></div>
+    <script>
+      let start = new Date("Dec 3, 2022 23:29:00").getTime();
+      let counter = document.getElementById("counter");
+
+      let updateCounter = () => {
+        let now = new Date().getTime();
+        let distance = now - start;
+        
+        let years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+        let days = Math.floor(distance % (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        counter.innerHTML = years > 0 ? `${years} Years ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds` : `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        updateCounter();
+        setInterval(updateCounter, 1000);
+      });
+
+    </script>
+  </body>
+</html>

@@ -7,21 +7,36 @@
   </head>
   <style>
     body {
-    background-color: black;
-    color: white;
-    font-family: "Arial", sans-serif;
-    text-align: center;
-  }
-  
-  #counter {
-    font-size: 72px;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
+      background-color: black;
+      color: white;
+      font-family: "Arial", sans-serif;
+      text-align: center;
+      transition: background-color 1s ease;
+    }
+
+    #counter {
+      font-size: 72px;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: text-shadow 1s ease;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    #counter:hover {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
   </style>
   <body>
     <div id="counter"></div>
@@ -32,7 +47,7 @@
       let updateCounter = () => {
         let now = new Date().getTime();
         let distance = now - start;
-        
+
         let years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
         let days = Math.floor(distance % (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 24));
         let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -45,6 +60,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         updateCounter();
         setInterval(updateCounter, 1000);
+        setInterval(changeBackgroundColor, 5000);
       });
 
     </script>

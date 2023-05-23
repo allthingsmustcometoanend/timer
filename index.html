@@ -42,27 +42,42 @@
     <div id="counter"></div>
     <script>
       let start = new Date("Dec 3, 2022 23:29:00").getTime();
+      let end = new Date("May 20, 2023 16:52:00").getTime();
       let counter = document.getElementById("counter");
 
       let updateCounter = () => {
         let now = new Date().getTime();
         let distance = now - start;
 
+        if (now > end) {
+          distance = end - start;
+        }
+
         let years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-        let days = Math.floor(distance % (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 24));
+        let months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
+        let days = Math.floor(distance % (1000 * 60 * 60 * 24 * 30) / (1000 * 60 * 60 * 24));
         let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        counter.innerHTML = years > 0 ? `${years} Years ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds` : `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+        let displayString = "";
+        if (years > 0) {
+          displayString += years + (years > 1 ? " Years " : " Year ");
+        }
+        if (months > 0) {
+          displayString += months + (months > 1 ? " Months " : " Month ");
+        }
+        displayString += days + (days > 1 ? " Days " : " Day ");
+        displayString += hours + (hours > 1 ? " Hours " : " Hour ");
+        displayString += minutes + (minutes > 1 ? " Minutes " : " Minute ");
+
+        counter.innerHTML = displayString;
       }
 
       document.addEventListener("DOMContentLoaded", () => {
         updateCounter();
         setInterval(updateCounter, 1000);
-        setInterval(changeBackgroundColor, 5000);
       });
-
     </script>
   </body>
 </html>
